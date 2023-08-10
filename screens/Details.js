@@ -1,21 +1,13 @@
+import { FlatList, SafeAreaView, Text, View } from "react-native";
 import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  FlatList,
-  Image,
-} from "react-native";
-import { COLORS, SIZES, SHADOWS, assets, FONTS } from "../constants";
-import {
-  CircleButton,
-  RectButton,
-  FocusedStatusBar,
-  SubInfo,
-  DetailsDesc,
   DetailsBid,
+  DetailsDesc,
   DetailsHeader,
+  FocusedStatusBar,
+  RectButton,
+  SubInfo,
 } from "../components";
+import { COLORS, FONTS, SHADOWS, SIZES } from "../constants";
 
 const Details = ({ route, navigation }) => {
   const { data } = route.params;
@@ -58,6 +50,18 @@ const Details = ({ route, navigation }) => {
               }}
             >
               <DetailsDesc data={data} />
+
+              {data?.bids.length > 0 && (
+                <Text
+                  style={{
+                    fontSize: SIZES.font,
+                    fontFamily: FONTS.semiBold,
+                    color: COLORS.primary,
+                  }}
+                >
+                  {data.bids.length === 1 ? "Current Bid" : "Current Bids"}
+                </Text>
+              )}
             </View>
           </>
         )}

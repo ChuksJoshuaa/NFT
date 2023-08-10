@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity } from "react-native";
 import { COLORS, FONTS, SHADOWS, SIZES } from "../constants";
 
-export const CircleButton = ({ imgUrl, right, top, handlePress }) => {
+export const CircleButton = ({ imgUrl, right, top, handlePress, ...props }) => {
   return (
     <TouchableOpacity
       style={{
@@ -16,6 +16,7 @@ export const CircleButton = ({ imgUrl, right, top, handlePress }) => {
         ...SHADOWS.light,
         top,
         right,
+        ...props,
       }}
       onPress={handlePress}
     >

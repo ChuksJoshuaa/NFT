@@ -1,13 +1,31 @@
-import { View, Text } from "react-native";
 import { useState } from "react";
+import { Text, View } from "react-native";
 import { ETHPrice, NFTTitle } from ".";
-import { COLORS, FONTS, SHADOWS, SIZES } from "../constants";
+import { COLORS, FONTS, SIZES } from "../constants";
 
 const DetailsDesc = ({ data }) => {
-  console.log(data);
+  const [text, setText] = useState(data.description.slice(0, 100));
+  const [readMore, setReadMore] = useState(false);
+
+  const showMore = () => {
+    if (!readMore) {
+      setText(data.description);
+      setReadMore(true);
+    } else {
+      setText(data.description.slice(0, 100));
+      setReadMore(false);
+    }
+  };
   return (
     <>
-      <View>
+      <View
+        style={{
+          width: "100%",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <NFTTitle
           title={data?.name}
           subTitle={data?.creator}
@@ -16,6 +34,52 @@ const DetailsDesc = ({ data }) => {
         />
 
         <ETHPrice price={data?.price} />
+      </View>
+
+      <View
+        style={{
+          marginVertical: SIZES.extraLarge * 1.5,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: SIZES.font,
+            fontFamily: FONTS.semiBold,
+            color: COLORS.primary,
+          }}
+        >
+          Description
+        </Text>
+
+        <View
+          style={{
+            marginTop: SIZES.base,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: SIZES.small,
+              fontFamily: FONTS.regular,
+              color: COLORS.secondary,
+              lineHeight: SIZES.large,
+            }}
+          >
+            {text}
+
+            {!readMore && "..."}
+
+            <Text
+              style={{
+                fontSize: SIZES.small,
+                fontFamily: FONTS.semiBold,
+                color: COLORS.primary,
+              }}
+              onPress={showMore}
+            >
+              {readMore ? "Show Less" : "Read More"}
+            </Text>
+          </Text>
+        </View>
       </View>
     </>
   );
